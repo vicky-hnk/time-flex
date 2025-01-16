@@ -6,8 +6,8 @@ seed=3
 
 # fixed values
 seq_len=96
-seq_overlap=0
-data_overlap=48
+seq_overlap=48
+data_overlap=0
 
 # settings for training
 shuffle=True

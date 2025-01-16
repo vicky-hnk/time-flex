@@ -21,7 +21,7 @@ loss="MSE"
 optimizer="Adam"
 epochs=25
 
-#settings for data preparation
+# settings for data preparation
 data_source="local_csv"
 features="M"
 time_enc=0

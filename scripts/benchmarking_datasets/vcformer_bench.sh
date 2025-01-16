@@ -34,37 +34,30 @@ for dataset in "${datasets[@]}"; do
         "traffic")
             batch_size=8
             epochs=20
-            model_dim=32
             ;;
         "Etth1" | "Etth2" | "Ettm1")
             batch_size=128
             epochs=10
-            model_dim=16
             ;;
         "Ettm2")
             batch_size=128
             epochs=10
-            model_dim=32
             ;;
         "weather")
             batch_size=16
             epochs=20
-            model_dim=16
             ;;
         "electricity")
             batch_size=32
             epochs=20
-            model_dim=16
             ;;
         "exchange_rate")
             batch_size=32
             epochs=20
-            model_dim=16
             ;;
         "illness")
             batch_size=32
             epochs=20
-            model_dim=16
             ;;
         *)
             echo "Unknown dataset: $dataset"

@@ -25,7 +25,6 @@ time_enc=0
 scale="Standard"
 
 BASE_DIR=$(dirname "$(realpath "$0")")/../..
-STORE_MODEL="$HOME/experiments/"
 
 # List of datasets and prediction lengths
 datasets=("traffic" "Etth1" "Etth2" "Ettm1" "Ettm2" "weather" "electricity" "exchange_rate")

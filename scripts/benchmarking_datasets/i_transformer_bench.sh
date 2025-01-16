@@ -17,7 +17,7 @@ stop_delta=0.00001
 loss="MSE"
 optimizer="Adam"
 
-#settings for data preparation
+# settings for data preparation
 data_source="local_csv"
 features="M"
 time_enc=0
