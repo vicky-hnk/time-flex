@@ -142,9 +142,9 @@ A stacked Dilated Convolution block learns the seasonal patterns at different sc
 
 ④ The Gated Convolution for one dilation rate is structured according to [4].
 
-⑤ Fifth item
+⑤ Adaptive Pooling, Activation and 1D Convolutions are applied as post-processing to learn further non-linearities and transform the tensor to the desired output dimension.
 
-⑥ Sixth item
+⑥ The season and trend parts are combined using a weighted sum with learnable weights to learn the influence of the seasonal and trend part.
 
 ## Training Settings
 
