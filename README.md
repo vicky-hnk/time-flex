@@ -19,28 +19,60 @@ reproduce the experiments and results presented in the paper.
 ## Repository Structure
 
 The repository is organized as follows:
-* **key_files** is a file storage like the applied scaler
-* **scripts** contains the shell scripts to run all experiments, i.e. execute the training:
-  * The folders **benchmarking_datasets** and **sampled_datasets** contain one script per model with parameter settings for the argument parser
-* **src** contains the main code base:
-  * **data**: all datasets
-  * **data_loader**: general time series dataloaders, and adapted ones for _CycleNet_ and _WaveMask_
-  * **evaluation**: class for experiment evaluation
-  * **experiments**: exec_entry.py is the entrypoint to execute training, executor.py contains the training class, main.py contains the main run function 
-  * **models**: this module contains all model implementations, reusable layers can be found in the **layers** module   
-  * **util**: utility module
-* **environment.yml** for the conda environment
+- `key_files`: Stores figures and applied scalers.
+- `scripts`: Contains shell scripts for running experiments and executing training.
+  - `benchmarking_datasets` and `sampled_datasets`: Each folder includes scripts for different models with their respective parameter settings.
+- `src`: Main codebase for the project.
+  - `data`: All datasets.
+  - `data_loader`: General time series data loaders, along with adapted loaders for _CycleNet_ [2] and _WaveMask_ [3].
+  - `evaluation`: Provides classes for experiment evaluation.
+  - `experiments`: 
+    - `exec_entry.py`: Entry point to execute training.
+    - `executor.py`: Contains the training class.
+    - `main.py`: Main function for running experiments.
+  - `models`: Implements models, with reusable layers in the `layers` module.
+  - `util`: Utility functions and helpers.
+- `environment.yml`: Conda environment configuration.
 
 ## Datasets and Data Manager
 
-This project uses the following datasets (which can be found in src/data):
+This project uses the following datasets:
+- **Benchmarking**: _ETT_, _Traffic_, _Weather_, _Solar_, _Electricity_, _Exchange Rate_.
+- **GP-Timeset**: _SE_, _Combined_, _Periodic_, _Locally Periodic_, _Rational Quadratic_.
 
-- **Benchmarking**: ETT, Traffic, Weather, Solar, Electricity, Exchange Rate.
-- **GP-Timeset**: SE, Combined, Periodic, Locally Periodic, Rational Quadratic.
-
-You can place your datasets in the `src/data/` folder and put the data parameters in util/dataset_manager.py. 
+### Add your own dataset
+You can place your datasets in the `src/data/` folder and add the dataset specific parameters in `src/util/dataset_manager.py`. 
 The `src/dataloader/timeseries_data_loader.py` script is responsible for loading and preprocessing these datasets. 
 You can modify it according to your needs.
+
+To add a new dataset to the project, follow these steps:
+
+1. **Place the Dataset File:**
+   - Place the dataset file in the `src/data/` directory.
+
+2. **Add Dataset to the _Dataset Manager_:**
+   - There are 3 distinct data loaders: 
+     - **DatasetTimeseries** for most models
+     ```python
+     considered_datasets = {'traffic': DatasetTimeseries}
+     ```
+     - **DatasetTimeseriesCycle** for the _CycleNet_ model 
+     ```python
+     cycle_datasets = {'traffic': DatasetTimeseriesCycle}
+     ```
+     - **DatasetTimeseriesWave** for the _WaveMask_ model
+     ```python
+     mask_datasets = {'traffic': DatasetTimeseriesWave}
+     ```
+
+3. **Dataset-Specific Parameters:**
+   - Each dataset requires specific parameters that should be added to the `dataset_params` dictionary, using the dataset name as the key:
+   ```python
+   dataset_params = {
+       "traffic": {
+           "freq": "h", "data_root_path": "data", ...
+       }
+   }
 
 ## Environment Setup
 
@@ -64,28 +96,45 @@ To run the experiments, you will need to set up a Python environment with the re
     ```
 
 ## Running the Scripts
+To execute the scripts, ensure that you have activated your conda environment (or any environment of your choice):
 
-* `run_all.sh` executes training of all models and datasets.
-
-    ```bash
-    bash scripts/run_all.sh
-    ```
-  
-* `run_sampled.sh` executes training of all models on the sampled dataset _GP-TimeSet_.
+- **`run_all.sh`**: Runs training for all models and datasets.
 
     ```bash
     bash scripts/run_all.sh
     ```
-  
-* `run_bench.sh` executes training of all models on common benchmarking datasets.
+
+- **`run_sampled.sh`**: Runs training for all models on the sampled dataset _GP-TimeSet_.
 
     ```bash
-    bash scripts/run_all.sh
+    bash scripts/run_sampled.sh
+    ```
+
+- **`run_bench.sh`**: Runs training for all models on standard benchmarking datasets.
+
+    ```bash
+    bash scripts/run_bench.sh
     ```
   
 ## Model Overview
-<img src="key_files/full.png" alt="Alt text" width="500"/>
+The _TimeFlex_ model architecture for a channel independent processing is depicted in the following figure:
 
+<img src="key_files/figures/full.png" alt="Alt text" width="500"/>
+
+After optionally applying RevIN [1], the data undergoes a moving average decomposition to separate it into trend and seasonal components.
+
+① The trend part is processed by stacked feed-forward layers in the time domain.
+
+② The seasonal part is optionally transformed to the frequency domain using Fast Fourier Transform. 
+A stacked Dilated Convolution block learns the seasonal patterns at different scales.
+
+③ An exemplary Dilated Convolution block for one channel contains Gated Dilated Convolutions with exponentially increasing dilation rates.
+
+④ The Gated Convolution for one dilation rate is structured according to [4].
+
+⑤ Fifth item
+
+⑥ Sixth item
 
 ## Training Settings
 
@@ -117,3 +166,44 @@ To run the experiments, you will need to set up a Python environment with the re
 ## Results
 
 [All results](results.md)
+
+
+## References
+
+[1] T. Kim, J. Kim, Y. Tae, C. Park, J.-H. Choi, and J. Choo, “Reversible instance normalization for accurate time-series forecasting against distribution shift,” *ICLR*, 2022.
+
+[2] S. Lin, W. Lin, X. Hu, W. Wu, R. Mo, and H. Zhong, “CycleNet: Enhancing time series forecasting through modeling periodic patterns,” *NeurIPS*, 2024.
+
+[3] D. Arabi, J. Bakhshaliyev, A. Coskuner, K. Madhusudhanan, and K. S. Uckardes, “Wave-Mask/Mix: Exploring wavelet-based augmentations for time series forecasting,” 2024. [Online]. Available: https://arxiv.org/abs/2408.10951
+
+[4]  A. van den Oord, N. Kalchbrenner, L. Espeholt, K. Kavukcuoglu, O. Vinyals, and A. Graves, “Conditional image generation with PixelCNN decoders,” *NeurIPS*, vol. 29, 2016.
+
+Further considered model architectures:
+
+[5] S. Wang, H. Wu, X. Shi, T. Hu, H. Luo, L. Ma, J. Y. Zhang, and J. Zhou, “Timemixer: Decomposable multiscale mixing for time series forecasting,” *CoRR*, vol. abs/2405.14616, 2024.
+
+[6] A. van den Oord, S. Dieleman, H. Zen, K. Simonyan, O. Vinyals, A. Graves, N. Kalchbrenner, A. Senior, and K. Kavukcuoglu, “Wavenet: A generative model for raw audio,” 2016. Available: [https://arxiv.org/abs/1609.03499](https://arxiv.org/abs/1609.03499).
+
+[7] H. Wu, J. Xu, J. Wang, and M. Long, “Autoformer: Decomposition transformers with auto-correlation for long-term series forecasting,” in *NeurIPS*, 2021.
+
+[8] T. Zhou, Z. Ma, Q. Wen, X. Wang, L. Sun, and R. Jin, “FEDformer: Frequency enhanced decomposed transformer for long-term series forecasting,” in *ICML*, 2022, pp. 27 268–27 286.
+
+[9] Y. Zhang and J. Yan, “Crossformer: Transformer utilizing cross-dimension dependency for multivariate time series forecasting,” in *ICLR*, 2023.
+
+[10] Y. Nie, N. H. Nguyen, P. Sinthong, and J. Kalagnanam, “A time series is worth 64 words: Long-term forecasting with transformers,” in *ICLR*, 2023.
+
+[11] Y. Liu, T. Hu, H. Zhang, H. Wu, S. Wang, L. Ma, and M. Long, “iTransformer: Inverted transformers are effective for time series forecasting.”
+
+[12] Y. Yang, Q. Zhu, and J. Chen, “Vcformer: Variable correlation transformer with inherent lagged correlation for multivariate time series forecasting,” in *IJCAI*, 2024, pp. 5335–5343.
+
+[13] A. Das, W. Kong, A. Leach, S. K. Mathur, R. Sen, and R. Yu, “Long-term forecasting with tiDE: Time-series dense encoder,” *Transactions on Machine Learning Research*, 2023.
+
+[14] S. Lin, W. Lin, W. Wu, H. Chen, and J. Yang, “SparSETSF: Modeling long-term time series forecasting with 1k parameters,” in *ICML*, 2024.
+
+[15] S. Lin, W. Lin, X. Hu, W. Wu, R. Mo, and H. Zhong, “CycleNet: Enhancing time series forecasting through modeling periodic patterns,” in *NeurIPS*, 2024.
+
+[16] A. Zeng, M. Chen, L. Zhang, and Q. Xu, “Are transformers effective for time series forecasting?” *AAAI*, vol. 37, no. 9, pp. 11 121–11 128, Jun. 2023.
+
+## Acknowledgments
+
+We would like to express our sincere thanks to the authors and contributors of [TSLib](https://github.com/thuml/Time-Series-Library) for their ongoing work in providing an extensive benchmarking platform for deep time series analysis.
