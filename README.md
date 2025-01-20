@@ -15,23 +15,25 @@ reproduce the experiments and results presented in the paper.
 5. [Model Overview](#model-overview)
 6. [Training Settings](#training-settings)
 7. [Results](#results)
+8. [References](#references)
+9. [Acknowledgments](#acknowledgments)
 
 ## Repository Structure
 
-The repository is organized as follows:
+The repository is organized as follows: 
 - `key_files`: Stores figures and applied scalers.
 - `scripts`: Contains shell scripts for running experiments and executing training.
-  - `benchmarking_datasets` and `sampled_datasets`: Each folder includes scripts for different models with their respective parameter settings.
-- `src`: Main codebase for the project.
-  - `data`: All datasets.
-  - `data_loader`: General time series data loaders, along with adapted loaders for _CycleNet_ [2] and _WaveMask_ [3].
-  - `evaluation`: Provides classes for experiment evaluation.
+  - `benchmarking_datasets` and `sampled_datasets`: Each folder includes scripts for different models with their respective parameter settings. 
+- `src`: Main codebase for the project. 
+  - `data`: All datasets. 
+  - `data_loader`: General time series data loaders, along with adapted loaders for _CycleNet_ [2] and _WaveMask_ [3]. 
+  - `evaluation`: Provides classes for experiment evaluation. 
   - `experiments`: 
-    - `exec_entry.py`: Entry point to execute training.
-    - `executor.py`: Contains the training class.
-    - `main.py`: Main function for running experiments.
-  - `models`: Implements models, with reusable layers in the `layers` module.
-  - `util`: Utility functions and helpers.
+    - `exec_entry.py`: Entry point to execute training. 
+    - `executor.py`: Contains the training class. 
+    - `main.py`: Main function for running experiments. 
+  - `models`: Implements models, with reusable layers in the `layers` module. 
+  - `util`: Utility functions and helpers. 
 - `environment.yml`: Conda environment configuration.
 
 ## Datasets and Data Manager
