@@ -43,16 +43,14 @@ This project uses the following datasets:
 - **GP-Timeset**: _SE_, _Combined_, _Periodic_, _Locally Periodic_, _Rational Quadratic_.
 
 ### Add your own dataset
-You can place your datasets in the `src/data/` folder and add the dataset specific parameters in `src/util/dataset_manager.py`. 
-The `src/dataloader/timeseries_data_loader.py` script is responsible for loading and preprocessing these datasets.
-
 To add a new dataset to the project, follow these steps:
 
 1. **Place the Dataset File:**
    - Place the dataset file in the `src/data/` directory.
 
 2. **Add Dataset to the _Dataset Manager_ (`src/util/dataset_manager.py`):**
-   - There are 3 distinct data loaders: 
+   - The dataset dictionaries take the dataset name as key and the loader class as value.
+   - There are 3 distinct data loaders:
      - **DatasetTimeseries** for most models
      ```python
      considered_datasets = {'traffic': DatasetTimeseries}
@@ -75,11 +73,11 @@ To add a new dataset to the project, follow these steps:
         "data_root_path": "data",  # Root directory where data is located
         "c_out": int,  # Number of output channels (e.g., 7)
         "data_path": str,  # Path to the dataset (e.g., 'ETT/ETTh1.csv')
-        "target": str,  # Target feature (e.g., 'OT' for Output Target)
+        "target": str,  # Target feature (i.e. the column name of the target feature)
         "num_variates": int,  # Number of input channels (e.g., 7)
         "enc_in": int,  # Encoder input dimension (e.g., 7 input features)
         "dec_in": int,  # Decoder input dimension (e.g., 7 input features)
-        "output_feature_dim": int  # Same as 'c_out' (e.g., 7)
+        "output_feature_dim": int  # Same as 'c_out'
         }
     }
    ```
