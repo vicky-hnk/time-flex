@@ -90,9 +90,19 @@ To run the experiments, you will need to set up a Python environment with the re
     conda activate torch
     ```
    
-3. Make sure you have all necessary system dependencies (e.g., CUDA for GPU support) if applicable. To check CUDA availability run:
+3. Make sure you have all necessary system dependencies (e.g., CUDA for GPU support) if applicable. 
+
+   Run the following command to get information about your GPU and CUDA version for Linux:
+   ```bash
+   nvidia-smi && nvcc --version && echo $CUDA_HOME
+   ```
+   and for Windows:
+   ```bash
+   nvidia-smi && nvcc --version && echo %CUDA_HOME%
+   ```
+   To check CUDA availability within your environment run:
     ```
-   python3 src/util/check_cuda.py
+    python3 src/util/check_cuda.py
     ```
 
 ## Running the Scripts
