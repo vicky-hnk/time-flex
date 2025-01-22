@@ -44,6 +44,16 @@ This project uses the following datasets:
 - **Benchmarking**: _ETT_, _Traffic_, _Weather_, _Solar_, _Electricity_, _Exchange Rate_.
 - **GP-Timeset**: _SE_, _Combined_, _Periodic_, _Locally Periodic_, _Rational Quadratic_.
 
+### Compressed Datasets
+
+The datasets are compressed into `.zip` files to reduce storage requirements.
+Run the following command to decompress the dataset:
+   ```bash
+   cd src/data
+   unzip electricity.zip && unzip ETT.zip && unzip exchange_rate.zip && unzip traffic.zip && unzip weather.zip
+   rm -f *.zip
+  ```
+
 ### Add your own dataset
 
 To add a new dataset to the project, follow these steps:
