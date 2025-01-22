@@ -1,5 +1,4 @@
 #!/bin/bash
-export PYTHONPATH="$HOME/repos/forecastexperiments":$PYTHONPATH
 
 # fixed values
 seq_len=96

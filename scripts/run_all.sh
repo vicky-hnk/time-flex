@@ -2,6 +2,12 @@
 
 BASE_DIR=$(dirname "$(realpath "$0")")
 
+# Export Python directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+export PYTHONPATH="$REPO_DIR:$PYTHONPATH"
+echo "PYTHONPATH set to: $PYTHONPATH"
+
 # Autoformer
 bash "$BASE_DIR/sampled_datasets/autoformer_sampled.sh"
 bash "$BASE_DIR/benchmarking_datasets/autoformer_bench.sh"

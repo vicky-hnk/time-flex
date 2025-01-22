@@ -48,10 +48,10 @@ class CrossFormer(nn.Module):
         # Encoder
         self.encoder = CrossEncoder(
             [
-                scale_block(params, 1 if l is 0 else self.win_size,
+                scale_block(params, 1 if l == 0 else self.win_size,
                             params.model_dim, params.num_heads, params.ff_dim,
                             1, params.dropout,
-                            self.in_seg_num if l is 0 else ceil(
+                            self.in_seg_num if l == 0 else ceil(
                                 self.in_seg_num / self.win_size ** l),
                             params.factor
                             ) for l in range(params.num_encoder_layers)

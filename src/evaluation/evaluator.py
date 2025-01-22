@@ -9,7 +9,6 @@ import numpy as np
 import pandas as pd
 
 from src.util.train_utils import Metrics, set_seeds
-from src.util import mlflow_utils
 
 set_seeds(0)
 
@@ -71,10 +70,8 @@ class ModelEvaluator:
         """
         Calculates and stores important metrics in json file. If necessary
         converts Pytorch Tensors to lists.
-        Logged with MLFlow.
         """
         metrics_values = Metrics.calculate_metrics(predictions[0], truth[0])
         print(f"\n{'=' * 46}\nTest metrics {metrics_values} \n{'=' * 46}\n")
         results = {metric: value.item() for metric, value in
                    zip(['mae', 'mse', 'rmse'], metrics_values)}
-        mlflow_utils.log_metrics(results)

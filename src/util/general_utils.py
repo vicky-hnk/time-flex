@@ -34,7 +34,6 @@ class Attribs:
         self.batch_size = None
         self.num_variates = None
         self.train_procedure = None
-        self.store_model_path = None
         self.data_split = None
         self.stat_split = None
         self.scale = None

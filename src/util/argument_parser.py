@@ -8,6 +8,8 @@ def parse_args():
         description='Experiments on multivar. time series forecasting-data- '
                     'and training-related arguments.')
 
+    parser.add_argument('model_name', type=str,
+                        help="Name of the model to execute")
     parser.add_argument('--random_seed', type=int, default=3,
                         help='random seed')
 

@@ -13,7 +13,6 @@ import numpy as np
 
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from torch.utils.data import DataLoader, Dataset
-from src.util import mlflow_utils
 from src.util.train_utils import set_seeds
 from src.util.general_utils import Attribs
 
@@ -126,7 +125,6 @@ class DatasetTimeseries(Dataset):
                                        f"{self.scale}_{self.data}.joblib")
             os.makedirs(os.path.dirname(scaler_path), exist_ok=True)
             joblib.dump(self.scaler, scaler_path)
-            mlflow_utils.log_artifact(scaler_path)
             data = self.scaler.transform(df_data.values)
             print('Scaler successfully saved to {}'.format(scaler_path))
         else:

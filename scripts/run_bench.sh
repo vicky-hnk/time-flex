@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Export Python directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+export PYTHONPATH="$REPO_DIR:$PYTHONPATH"
+echo "PYTHONPATH set to: $PYTHONPATH"
+
 BASE_DIR=$(dirname "$(realpath "$0")")
 
 # Autoformer

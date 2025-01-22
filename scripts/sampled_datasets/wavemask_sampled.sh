@@ -1,5 +1,4 @@
 #!/bin/bash
-export PYTHONPATH="$HOME/repos/forecastexperiments":$PYTHONPATH
 
 # set a seed
 seed=3
@@ -39,7 +38,6 @@ for dataset in "${datasets[@]}"; do
   for aug_type in "${aug_types[@]}"; do
     for pred_len in "${pred_lengths[@]}"; do
       python3 "$BASE_DIR/src/experiments/exec_entry.py" "wavemask" \
-      --store_model_path "$STORE_MODEL" \
       --data "$dataset" \
       --pred_len "$pred_len" \
       --seq_len "$seq_len" \

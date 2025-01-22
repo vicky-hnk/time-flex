@@ -7,7 +7,6 @@ from src.models.cyclenet import CycleNet
 from src.models.d_linear import DLinearModel
 from src.models.fedformer import FEDformer
 from src.models.i_transfomer import Itransformer
-from src.models.mamba import MambaModel
 from src.models.n_linear import NLinear
 from src.models.patch_tst import PatchTST
 from src.models.r_linear import RLinear
@@ -30,7 +29,6 @@ def get_model(selected_model):
         'dlinear': DLinearModel,
         'fedformer': FEDformer,
         'itransformer': Itransformer,
-        'mamba': MambaModel,
         'nlinear': NLinear,
         'patchtst': PatchTST,
         'rlinear': RLinear,

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export PYTHONPATH="$HOME/repos/time-flex":$PYTHONPATH
 BASE_DIR=$(dirname "$(realpath "$0")")
 
 # Autoformer

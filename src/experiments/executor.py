@@ -8,7 +8,6 @@ and a dictionary with all datasets the model shall be executed on.
 ---
 The training can be done with or without teacher forcing.
 Trains the model using the provided data and training parameters.
-Logging with MLFlow.
 Using teacher forcing the model is shown the ground truth during training.
 That accelerates the convergence, however, the model has a high risk of
 suffering an exposure bias (i.e. during testing or inference the model
@@ -134,7 +133,6 @@ class LearningProcessor:
     def train(self):
         """
         Train the model using the provided data and training parameters.
-        Logging with MLFlow.
         Early stopping and learning rate scheduling is performed.
         After every training epoch, the model is validated on an unseen
         validation set. The validation loss is used to
@@ -234,7 +232,7 @@ class LearningProcessor:
 
     def test(self):
         """
-        Test the trained model using test data. Logging with MLFlow.
+        Test the trained model using test data.
         :return pred_values: is a list of numpy arrays with predicted sequences
         :return true_values: contains corresponding ground truth
         :return marks_x, marks_y: timestamps of the input and output sequences,
@@ -455,7 +453,7 @@ class LearningProcessor:
 
     def test_cycle(self):
         """
-        Test the trained model using test data. Logging with MLFlow.
+        Test the trained model using test data.
         :return pred_values: is a list of numpy arrays with predicted sequences
         :return true_values: contains corresponding ground truth
         :return marks_x, marks_y: timestamps of the input and output sequences,

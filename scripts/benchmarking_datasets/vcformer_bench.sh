@@ -1,5 +1,4 @@
 #!/bin/bash
-export PYTHONPATH="$HOME/repos/forecastexperiments":$PYTHONPATH
 
 # fixed values
 seq_len=96
@@ -66,16 +65,12 @@ for dataset in "${datasets[@]}"; do
     esac
     for pred_len in "${pred_lengths[@]}"; do
       python3 "$BASE_DIR/src/experiments/exec_entry.py" "vcformer" \
-      --store_model_path "$STORE_MODEL" \
       --data "$dataset" \
       --pred_len "$pred_len" \
       --seq_len "$seq_len" \
       --seq_overlap "$seq_overlap" \
       --data_overlap "$data_overlap" \
       --root_path "$BASE_DIR" \
-      --exp_name "$EXPERIMENT" \
-      --exp_id "$ID" \
-      --mlflow_run "${dataset}_${pred_len}" \
       --shuffle "$shuffle" \
       --num_workers "$num_workers" \
       --learning_rate "$init_learning_rate" \

@@ -1,5 +1,4 @@
 #!/bin/bash
-export PYTHONPATH="$HOME/repos/forecastexperiments":$PYTHONPATH
 
 # set a seed
 seed=3
