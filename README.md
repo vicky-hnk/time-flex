@@ -3,7 +3,7 @@
 This repository contains code and resources related to the scientific paper titled
 "Tailored Architectures for Time Series Forecasting:
 Evaluating Deep Learning Models on Gaussian
-Process-Generated Data". It includes the scripts, datasets, and environment setup necessary to
+Process-Generated Data" - accepted at IJCNN 2025. It includes the scripts, datasets, and environment setup necessary to
 reproduce the experiments and results presented in the paper.
 
 ## Table of Contents
